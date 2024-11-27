@@ -11,7 +11,7 @@ export const createUsuario = async (req, res) => {
 
     try {
         // Verificar si el correo ya está registrado
-        const [existingUser] = await conmysql.query('SELECT * FROM Usuario WHERE email = ?', [email]);
+        const [existingUser] = await conmysql.query('SELECT * FROM usuario WHERE email = ?', [email]);
         if (existingUser.length > 0) {
             return res.status(400).json({ message: 'El correo ya está registrado' });
         }
@@ -38,7 +38,7 @@ export const loginUsuario = async (req, res) => {
 
     try {
         // Buscar al usuario por email
-        const [user] = await conmysql.query('SELECT * FROM Usuario WHERE email = ?', [email]);
+        const [user] = await conmysql.query('SELECT * FROM usuario WHERE email = ?', [email]);
 
         if (user.length === 0) {
             return res.status(400).json({ message: 'Usuario no encontrado' });
