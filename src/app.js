@@ -11,12 +11,28 @@ import { PORT } from './config.js';
 const app = express(); // Define express después de importarlo
 
 // Configuración de CORS
+const allowedOrigins = [
+    'https://proyecto-9xtr.onrender.com',
+    'http://localhost:8100'
+];
+
 const corsOptions = {
-    origin: '*',
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            // Permite orígenes específicos o todos si no hay origen (por ejemplo, para Postman o pruebas locales)
+            callback(null, true);
+        } else {
+            // Permite todos los orígenes si no está en la lista permitida
+            callback(null, true);
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
+    credentials: true
 };
+
+app.use(cors(corsOptions));
+
 
 // Middleware
 app.use(cors(corsOptions));
