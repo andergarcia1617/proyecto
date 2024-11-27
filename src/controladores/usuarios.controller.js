@@ -53,7 +53,7 @@ export const loginUsuario = async (req, res) => {
         // Crear el token JWT con usuario_id incluido
         const token = jwt.sign(
             { usuario_id: user[0].usuario_id, email: user[0].email },
-            'mi_clave_secreta', // Cambia por una clave segura
+            process.env.JWT_SECRET,  // Usar la variable de entorno
             { expiresIn: '1h' }
         );
 
